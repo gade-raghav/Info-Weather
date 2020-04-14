@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WeatherController{
 
-	public int code;
-	public String content;
+        public int code;
+        public String content;
+        public String inline;
+        public static final String templateC = "Weather Information\nLocation: %s  \n";
+        public static final String templateF= "Weather Information \n \n";
 
-	@GetMapping("/weather/current")
-	public String current(@RequestParam(value="location" )String location) {
 
-		
-		 try {
+
+        @GetMapping("/weather/current")
+        public Weather current(@RequestParam(value="location" )String location) {
+
+
+                try {
 
                 String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid=48e5230c17044561ca546f13e603e88c";
                 URL obj = new URL(url);
@@ -36,22 +41,26 @@ public class WeatherController{
                 }
 
                 in.close();
-		content = response.toString();
-		code = responseCode;
+                content = response.toString();
+                
 
         } catch (Exception e) {
                 System.out.println("Error: "+e);
         }
+        
 	
-	return String.format("\n"+"Weather Information: "+content+"\n");
+	
+        return new Weather(String.format(content));
 
-	}
+        }
 
-	@GetMapping("/weather/forecast")
-	public String forecast(@RequestParam(value="lat" , defaultValue="60.99")String lat,
-			       @RequestParam(value="lon" , defaultValue="30.9")String lon) {
+        @GetMapping("/weather/forecast")
+        public Weather forecast(@RequestParam(value="lat")String lat,
+                               @RequestParam(value="lon")String lon) {
 
-		 try {
+
+
+                 try {
 
                 String url = "http://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid=48e5230c17044561ca546f13e603e88c";
                 URL obj = new URL(url);
@@ -67,15 +76,17 @@ public class WeatherController{
                         response.append(inputLine);
                 }
                 in.close();
-		content = response.toString();
+                content = response.toString();
 
         } catch (Exception e) {
                 System.out.println("Error: "+e);
         }
 
-	return String.format("Weather Information: "+content+"\n");
+        return new Weather(String.format(content));
 
-	}
+        //return String.format("Weather Information: "+content+"\n");
+
+        }
 /*@RestController
 public class MyErrorController implements ErrorController  {
 
@@ -91,11 +102,6 @@ public class MyErrorController implements ErrorController  {
     }
 }
 */
-	
+
 }
-
-
-
-
-
 
