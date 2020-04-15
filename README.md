@@ -25,7 +25,7 @@ run the following command on Linux CLI
 
 You can make a curl request 
 ```bash
-curl http://localhost:8080/weather/current?location={city name}
+curl "http://localhost:8080/weather/current?location={city name}"
 ```
 You can enter the following url with required parameters in browser.
 
