@@ -4,6 +4,7 @@ import java.util.*;
 import java.net.*;
 
 
+import org.json.JSONObject;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,14 +48,46 @@ public class WeatherController{
         } catch (Exception e) {
                 System.out.println("Error: "+e);
         }
-        
-	
-	
-        return new Weather(String.format(content));
+       		JSONObject root = new JSONObject(content);
+		//coordinates
+		JSONObject co = root.getJSONObject("coord");
+		//temperature-humidity-pressure
+		JSONObject main = root.getJSONObject("main");
+		//wind
+		JSONObject wind = root.getJSONObject("wind");
+		//system
+		JSONObject sys = root.getJSONObject("sys");
+		
+		
+		return new Weather(co.getInt("lat"),
+			       	co.getLong("lon"),
+				main.getInt("temp"),
+				main.getInt("pressure"),
+				main.getInt("humidity"),
+				wind.getInt("speed"),
+				wind.getInt("deg"),
+				sys.getString("country"),
+				root.getString("name"),
+				sys.getLong("sunrise"),
+				sys.getLong("sunset")
+				);
 
-        }
+	}
+}
+	       	
+	
+//THIS IS FOR FORECAST WEATHER WHICH REQUIRES A LITTILE EDIT	
+ 
 
-        @GetMapping("/weather/forecast")
+
+
+
+
+ 
+        //return new Weather(String.format(content));
+
+
+        /*@GetMapping("/weather/forecast")
         public Weather forecast(@RequestParam(value="lat")String lat,
                                @RequestParam(value="lon")String lon) {
 
@@ -86,7 +119,7 @@ public class WeatherController{
 
         //return String.format("Weather Information: "+content+"\n");
 
-        }
+        }*/
 /*@RestController
 public class MyErrorController implements ErrorController  {
 
@@ -101,7 +134,9 @@ public class MyErrorController implements ErrorController  {
         return String.format("/error");
     }
 }
-*/
 
 }
+
+*/
+
 
