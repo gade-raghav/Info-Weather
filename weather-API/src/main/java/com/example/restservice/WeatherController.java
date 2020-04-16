@@ -26,7 +26,7 @@ public class WeatherController{
                   SpringApplication.run(WeatherController.class, args);
 		  key=System.getenv("WEB_APPID");
 		  if (key == null){
-			  System.out.print("--------------------------------------------------------------------------------------------------------------------------------------\nPlease set an environment variable as instructed in the README.md file\n--------------------------------------------------------------------------------------------------------------------------------------\n\n\n");
+			  System.out.print("----------------------------------------------------------------------------------------------------------------------------------------------\nPlease set an environment variable as instructed in the README.md file\n----------------------------------------------------------------------------------------------------------------------------------------------\n");
 			  System.exit(0);
 			  
                   }
@@ -66,13 +66,15 @@ public class WeatherController{
                 while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
                 }
+		
 
                 in.close();
                 content = response.toString();
                 
 
         } catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.print("\n----------------------------------------------------------------------------------------------------------------------------------------------Location does not exist\nPlease check and try again\n----------------------------------------------------------------------------------------------------------------------------------------------");
+		return new Weather("Not Found","Not Found",0,0,0,0,0,0,0,0,0);
         }
        		JSONObject root = new JSONObject(content);
 		//coordinates
@@ -85,15 +87,16 @@ public class WeatherController{
 		JSONObject sys = root.getJSONObject("sys");
 		
 		
-		return new Weather(co.getInt("lat"),
+		return new Weather(
+				 sys.getString("country"),
+                                root.getString("name"),
+				co.getInt("lat"),
 			       	co.getInt("lon"),
 				main.getInt("temp"),
 				main.getInt("pressure"),
 				main.getInt("humidity"),
 				wind.getInt("speed"),
 				wind.getInt("deg"),
-				sys.getString("country"),
-				root.getString("name"),
 				sys.getLong("sunrise"),
 				sys.getLong("sunset")
 				);

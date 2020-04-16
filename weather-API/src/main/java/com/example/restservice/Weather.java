@@ -14,7 +14,9 @@ public class Weather{
 	private long sunset;
 
 
-	public Weather(float lat,float lon, float temp, float pressure, float humidity, float speed, float deg,  String country, String city, long sunrise, long sunset){
+	public Weather( String country, String city,float lat,float lon, float temp, float pressure, float humidity, float speed, float deg, long sunrise, long sunset){
+		this.country=country;
+		this.city=city;
 		this.lat=lat;
 		this.lon=lon;
 		this.temp=temp;
@@ -22,11 +24,18 @@ public class Weather{
 		this.humidity=humidity;
 		this.speed=speed;
 		this.deg=deg;
-		this.country=country;
-		this.city=city;
 		this.sunrise=sunrise;
 		this.sunset=sunset;
 	}
+
+	 public String getCountry() {
+                return country;
+        }
+
+        public  String getCity() {
+                return city;
+        }
+
 
 	public float getLat() {
 		return lat;
@@ -54,13 +63,6 @@ public class Weather{
 		return deg; 
 	}
 
-	public String getCountry() {
-		return country;
-	}
-
-        public  String getCity() {
-                return city;
-        }
         public long getSunrise() {
                 return sunrise;
         }
