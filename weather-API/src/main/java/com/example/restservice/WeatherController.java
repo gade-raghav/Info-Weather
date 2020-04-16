@@ -3,7 +3,8 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 
-
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.json.JSONObject;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +12,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.client.RestTemplate;
 //import org.springframework.web.bind.annotation.Autowired;
+@SpringBootApplication
 @RestController
 public class WeatherController{
+
+	public String content;
+        public String inline;
+        public static String key ;
+        public static int responseCode;
+
+               
+	public static void main(String[] args) {
+                  SpringApplication.run(WeatherController.class, args);
+		  key=System.getenv("WEB_APPID");
+		  if (key == null){
+			  System.out.print("--------------------------------------------------------------------------------------------------------------------------------------\nPlease set an environment variable as instructed in the README.md file\n--------------------------------------------------------------------------------------------------------------------------------------\n\n\n");
+			  System.exit(0);
+			  
+                  }
+	}
 
 
 /*	@Autowired
 	private RestTemplate restTemplate;
 */
-	
-        public int code;
-        public String content;
-        public String inline;
-	public String key = System.getenv("WEB_APPID");
 	
         @GetMapping("/weather/current")
         public Weather current(@RequestParam(value="location" )String location) {
@@ -36,7 +49,8 @@ public class WeatherController{
 		return Array.asList(objects);
 	}
 }
-*/
+*/		
+		
                 try {
 
                 String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid="+key; 
@@ -44,7 +58,7 @@ public class WeatherController{
 
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                int responseCode = con.getResponseCode();
+                responseCode = con.getResponseCode();
                 BufferedReader in = new BufferedReader(
                                 new InputStreamReader(con.getInputStream()));
                 String inputLine;
@@ -131,13 +145,14 @@ public class WeatherController{
         //return String.format("Weather Information: "+content+"\n");
 
         }*/
-/*@RestController
-public class MyErrorController implements ErrorController  {
+
+@RestController
+class MyErrorController implements ErrorController  {
 
     @GetMapping("/error")
     public String handleError() {
         //do something like logging
-        return String.format("error"+code+content);
+        return String.format("error");
     }
 
     @Override
@@ -146,8 +161,6 @@ public class MyErrorController implements ErrorController  {
     }
 }
 
-}
 
-*/
 
 
