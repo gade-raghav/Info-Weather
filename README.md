@@ -13,7 +13,8 @@ spring-boot framework
 
 Clone the repository
 
-Set up an environment variable WEB_APPID.Use this [link](https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/) in case there's an issue
+Set up an environment variable **WEB_APPID** and map it to APPID which you can get after signing up on [openweathermap](https://home.openweathermap.org/users/sign_up).
+Use this [link](https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/) in case there's an issue in setting up an environment variable.
 
 
 run the following command on Linux CLI
