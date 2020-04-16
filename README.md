@@ -13,6 +13,9 @@ spring-boot framework
 
 Clone the repository
 
+Set up an environment variable WEB_APPID.Use this [link](https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/) in case there's an issue
+
+
 run the following command on Linux CLI
 ```bash 
 ./mvnw spring-boot:run
