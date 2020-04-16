@@ -149,6 +149,8 @@ public class WeatherController{
 
         }*/
 
+@RestController
+class MyErrorController implements ErrorController  {
 
     @GetMapping("/error")
     public String handleError() {
