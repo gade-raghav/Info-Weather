@@ -25,22 +25,12 @@ run the following command on Linux CLI
 
 You can make a curl request 
 ```bash
-curl http://localhost:8080/weather/current?location={city name}
+curl "http://localhost:8080/weather/current?location={city name}"
 ```
 You can enter the following url with required parameters in browser.
 
 ```bash
 http://localhost:8080/weather/current?location={city name}
-```
-* Forecast Weather
-
-You can make a curl request
-```bash
-curl http://localhost:8080/weather/forecast?lat={lat}&lon={lon}
-```
-You can enter the following url with required parameters in browser
-```bash
-http://localhost:8080/weather/current?lat={lat}&lon={lon}
 ```
 
 ## Acknowledgement
