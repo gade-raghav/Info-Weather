@@ -2,7 +2,7 @@ package com.example.restservice;
 
 public class Weather{
 	private float lat;
-	private double lon;
+	private float lon;
 	private float temp;
 	private float pressure;
 	private float humidity;
@@ -14,7 +14,7 @@ public class Weather{
 	private long sunset;
 
 
-	public Weather(float lat, double lon, float temp, float pressure, float humidity, float speed, float deg, String country, String city, long sunrise, long sunset){
+	public Weather(float lat,float lon, float temp, float pressure, float humidity, float speed, float deg,  String country, String city, long sunrise, long sunset){
 		this.lat=lat;
 		this.lon=lon;
 		this.temp=temp;
@@ -32,7 +32,7 @@ public class Weather{
 		return lat;
 
 	}
-	public double getLon() {
+	public float getLon() {
 		return lon;
 	}
 	
@@ -53,9 +53,10 @@ public class Weather{
 	public float getDeg() {
 		return deg; 
 	}
-	public String  getCountry() {
-                return country;
-        }
+
+	public String getCountry() {
+		return country;
+	}
 
         public  String getCity() {
                 return city;

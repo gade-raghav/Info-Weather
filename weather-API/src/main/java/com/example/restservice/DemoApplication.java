@@ -5,7 +5,13 @@
               
               @SpringBootApplication
               public class DemoApplication {
-                
+
+	/*	@Bean
+		public RestTemplate getRestTemplate() {
+		      return new RestTemplate();
+
+		}
+          */      
                   
                   public static void main(String[] args) {
                   SpringApplication.run(DemoApplication.class, args);

@@ -9,25 +9,37 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+//import org.springframework.web.client.RestTemplate;
+//import org.springframework.web.bind.annotation.Autowired;
 @RestController
 public class WeatherController{
 
+
+/*	@Autowired
+	private RestTemplate restTemplate;
+*/
+	
         public int code;
         public String content;
         public String inline;
-        public static final String templateC = "Weather Information\nLocation: %s  \n";
-        public static final String templateF= "Weather Information \n \n";
-
-
-
+	public String key = System.getenv("WEB_APPID");
+	
         @GetMapping("/weather/current")
         public Weather current(@RequestParam(value="location" )String location) {
 
-
+		
+		
+		
+		/*String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid=48e5230c17044561ca546f13e603e88c";
+		Object[] objects = restTemplate.getForObject(url,Object[].class);
+		
+		return Array.asList(objects);
+	}
+}
+*/
                 try {
 
-                String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid=48e5230c17044561ca546f13e603e88c";
+                String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid="+key; 
                 URL obj = new URL(url);
 
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -36,7 +48,7 @@ public class WeatherController{
                 BufferedReader in = new BufferedReader(
                                 new InputStreamReader(con.getInputStream()));
                 String inputLine;
-                java.lang.StringBuffer response = new StringBuffer();
+                StringBuffer response = new StringBuffer();
                 while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
                 }
@@ -60,7 +72,7 @@ public class WeatherController{
 		
 		
 		return new Weather(co.getInt("lat"),
-			       	co.getLong("lon"),
+			       	co.getInt("lon"),
 				main.getInt("temp"),
 				main.getInt("pressure"),
 				main.getInt("humidity"),
@@ -74,7 +86,6 @@ public class WeatherController{
 
 	}
 }
-	       	
 	
 //THIS IS FOR FORECAST WEATHER WHICH REQUIRES A LITTILE EDIT	
  
