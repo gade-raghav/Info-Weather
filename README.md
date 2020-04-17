@@ -37,6 +37,17 @@ You can enter the following url with required parameters in browser.
 http://localhost:8080/weather/current?location={city name}
 ```
 
+* Forecast Weather
+
+You can make a curl request 
+```bash
+curl "http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}"
+```
+You can enter the following url with required parameters in browser.
+
+```bash
+http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
+```
 ## Acknowledgement
 
 Thanks to [openweathermap api](https://openweathermap.org/api)
