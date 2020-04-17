@@ -159,7 +159,7 @@ class MyErrorController implements ErrorController  {
     @GetMapping("/error")
     public String handleError() {
         //do something like logging
-        return String.format("error");
+        return String.format("Something is really wrong because all the known error related issues have been resolved.In case you see this output please raise an issue in github with all the details.\n Thank you \n-RaghavGade");
     }
 
     @Override
