@@ -6,6 +6,7 @@ import java.net.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ public class WeatherController{
         public String inline;
         public static String key ;
         public static int responseCode;
+	public static String blah;
 
                
 	public static void main(String[] args) {
@@ -27,29 +29,17 @@ public class WeatherController{
 		  key=System.getenv("WEB_APPID");
 		  if (key == null){
 			  System.out.print("----------------------------------------------------------------------------------------------------------------------------------------------\nPlease set an environment variable as instructed in the README.md file\n----------------------------------------------------------------------------------------------------------------------------------------------\n");
-			  System.exit(0);
+			  System.exit(1);
 			  
                   }
 	}
 
 
-/*	@Autowired
-	private RestTemplate restTemplate;
-*/
 	
         @GetMapping("/weather/current")
         public Weather current(@RequestParam(value="location" )String location) {
 
 		
-		
-		
-		/*String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid=48e5230c17044561ca546f13e603e88c";
-		Object[] objects = restTemplate.getForObject(url,Object[].class);
-		
-		return Array.asList(objects);
-	}
-}
-*/		
 		
                 try {
 
@@ -102,7 +92,6 @@ public class WeatherController{
 				);
 
 	}
-}
 	
 //THIS IS FOR FORECAST WEATHER WHICH REQUIRES A LITTILE EDIT	
  
@@ -115,15 +104,15 @@ public class WeatherController{
         //return new Weather(String.format(content));
 
 
-        /*@GetMapping("/weather/forecast")
-        public Weather forecast(@RequestParam(value="lat")String lat,
+        @GetMapping("/weather/forecast")
+        public String forecast(@RequestParam(value="lat")String lat,
                                @RequestParam(value="lon")String lon) {
 
 
 
                  try {
 
-                String url = "http://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid=48e5230c17044561ca546f13e603e88c";
+                String url = "http://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+key; 
                 URL obj = new URL(url);
 
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -140,14 +129,29 @@ public class WeatherController{
                 content = response.toString();
 
         } catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.print("\n----------------------------------------------------------------------------------------------------------------------------------------------\nInput Error\nPlease check and try again\n----------------------------------------------------------------------------------------------------------------------------------------------");
+                return "Input invalid/incorrect.";
         }
 
-        return new Weather(String.format(content));
+        JSONObject rootf = new JSONObject(content);
+        JSONArray daily = rootf.getJSONArray("daily");
+        for(int i = 0; i < daily.length(); i ++){
+                JSONObject content = daily.getJSONObject(i);
+		
+		blah=blah+"\n"+i+" : "+content+"\n";
 
-        //return String.format("Weather Information: "+content+"\n");
+                }
 
-        }*/
+	return String.format("\n"+(rootf.getString("timezone")+blah));
+
+
+
+
+
+
+        }
+}
+
 
 @RestController
 class MyErrorController implements ErrorController  {
