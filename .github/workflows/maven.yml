@@ -22,6 +22,9 @@ jobs:
         java-version: 1.8
     - name: Build with Maven and Package
       run: cd weather-API && ./mvnw clean package
+    - name: Get release version
+      id: get_version
+      run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_SHA:6})
     - name: Publish to Dockerhub
       uses: elgohr/Publish-Docker-Github-Action@2.14
       with:
@@ -35,5 +38,4 @@ jobs:
         dockerfile: Dockerfile
         # Use buildargs when you want to pass a list of environment variables as build-args
         buildargs: JAR_FILE=weather-API/target/rest-service-0.0.1-SNAPSHOT.jar
-        # Use tag_names when you want to push tags/release by their git name
-        tag_names: true
+        tags: "${{ env.RELEASE_VERSION }}"
