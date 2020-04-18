@@ -59,7 +59,7 @@ http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
  ```
  Run the image that you've pulled using the following command
  ```bash
- docker run --env WEB-APPID="48e5230c17044561ca546f13e603e88c" -p 8080:8080 c1a5f6266868
+ docker run --env WEB-APPID={your-api} -p 8080:8080 c1a5f6266868
  ```
  
  * #### Current Weather
