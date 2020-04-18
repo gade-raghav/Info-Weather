@@ -9,7 +9,7 @@ I-Weather is a java application which uses Spring-boot framework to get weather 
 spring-boot framework
 
 
-## Usage
+# Usage
 
 Clone the repository
 
@@ -25,7 +25,7 @@ run the following command on Linux CLI
 ### Proceed only if there are no errors after running the previous command.
 
 
-* Current Weather
+* #### Current Weather
 
 You can make a curl request 
 ```bash
@@ -37,7 +37,7 @@ You can enter the following url with required parameters in browser.
 http://localhost:8080/weather/current?location={city name}
 ```
 
-* Forecast Weather
+* #### Forecast Weather
 
 You can make a curl request 
 ```bash
@@ -48,6 +48,46 @@ You can enter the following url with required parameters in browser.
 ```bash
 http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
 ```
+
+## Run as Docker
+ 
+ You can also run this using docker. 
+ 
+ Pull the docker image using the following command on Linux CLI
+ ```bash
+ docker pull raghavgade/weather-api:9fa91a
+ ```
+ Run the image that you've pulled using the following command
+ ```bash
+ docker run --env WEB-APPID="48e5230c17044561ca546f13e603e88c" -p 8080:8080 c1a5f6266868
+ ```
+ 
+ * #### Current Weather
+
+You can make a curl request 
+```bash
+curl "http://localhost:8080/weather/current?location={city name}"
+```
+You can enter the following url with required parameters in browser.
+
+```bash
+http://localhost:8080/weather/current?location={city name}
+```
+
+* #### Forecast Weather
+
+You can make a curl request 
+```bash
+curl "http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}"
+```
+You can enter the following url with required parameters in browser.
+
+```bash
+http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
+```
+
+ 
+
 ## Acknowledgement
 
 Thanks to [openweathermap api](https://openweathermap.org/api)
