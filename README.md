@@ -5,6 +5,7 @@ Info-Weather is a java application which uses Spring-boot framework to get weath
 ## Requirements
 
 [java](https://java.com/en/download/help/download_options.xml) 
+tested on openjdk 11.0.6
 
 spring-boot framework
 
@@ -49,7 +50,7 @@ You can enter the following url with required parameters in browser.
 http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
 ```
 
-## Run as Docker
+## Run using Docker
  
  You can also run this using docker. 
  
