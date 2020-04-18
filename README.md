@@ -61,7 +61,7 @@ http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
  ```bash
  docker run --env WEB-APPID={your-api} -p 8080:8080 c1a5f6266868
  ```
- After completing the above steps ,following option can be used to get weather information:
+ After completing the above steps ,following options can be used to get weather information:
  
  * #### Current Weather
 
