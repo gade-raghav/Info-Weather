@@ -59,7 +59,7 @@ http://localhost:8080/weather/forecast?lat={latitude}&lon={longitude}
  ```
  Run the image that you've pulled using the following command
  ```bash
- docker run --env WEB-APPID={your-api} -p 8080:8080 c1a5f6266868
+ docker run --env WEB-APPID={your-api} -p 8080:8080 raghavgade/weather-api:9fa91a
  ```
  After completing the above steps ,following options can be used to get weather information:
  
