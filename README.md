@@ -4,10 +4,8 @@ Info-Weather is a java application which uses Spring-boot framework to get weath
 
 ## Requirements
 
-[java](https://java.com/en/download/help/download_options.xml) 
-tested on openjdk 11.0.6
-
-spring-boot framework
+* [java](https://java.com/en/download/help/download_options.xml) (tested on openjdk 11.0.6
+* spring-boot framework
 
 
 # Usage
