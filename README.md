@@ -1,6 +1,6 @@
-# I-Weather
+# Info-Weather
 
-I-Weather is a java application which uses Spring-boot framework to get weather information.
+Info-Weather is a java application which uses Spring-boot framework to get weather information.
 
 ## Requirements
 
