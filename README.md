@@ -19,13 +19,15 @@ Set up an environment variable **WEB_APPID** and map it to APPID which you can g
 Use this [link](https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/) in case there's an issue in setting up an environment variable.
 
 
-run the following command on Linux CLI
+run the following command on Linux CLI 
 ```bash 
+cd info-weather
 ./mvnw spring-boot:run
 ```
 
 alternatively you can build a jar package and run the jar file.
 ```bash
+cd info-weather
 ./mvnw clean package     #to create jar package and remove the existing one
 java -jar target/mavenreactjsspringboot-0.0.1-SNAPSHOT.jar
 ```
