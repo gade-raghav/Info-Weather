@@ -6,14 +6,14 @@ Info-Weather is a java application which uses Spring-boot framework to get weath
 
 * [java](https://java.com/en/download/help/download_options.xml) (tested on openjdk 11.0.6)
 * spring-boot framework
-* node (v12.16.1)
-* npm (6.14.4)
-* docker (makes it easier)
+* [node](https://nodejs.org/en/download/) (v12.16.1)
+* [npm](https://www.npmjs.com/package/download) (6.14.4)
+* [docker](https://docs.docker.com/get-docker/)(makes it easier)
 
 
 # Usage
 
-Clone the repository
+Clone the repo
 
 Set up an environment variable **WEB_APPID** and map it to APPID which you can get after signing up on [openweathermap](https://home.openweathermap.org/users/sign_up).
 Use this [link](https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/) in case there's an issue in setting up an environment variable.
