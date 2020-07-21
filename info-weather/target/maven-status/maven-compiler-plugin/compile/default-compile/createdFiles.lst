@@ -1,0 +1,4 @@
+com/example/restservice/Weather.class
+com/example/restservice/WeatherController.class
+com/example/restservice/Weatherforecast.class
+com/example/restservice/MyErrorController.class
