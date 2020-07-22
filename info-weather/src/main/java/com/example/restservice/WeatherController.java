@@ -46,22 +46,6 @@ public class WeatherController{
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
         //Current Weather//
 	
         @GetMapping("/weather/current")
@@ -71,33 +55,30 @@ public class WeatherController{
 		
 		
                 try {
+			
+			String inputLine;	
+                	String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid="+key; 
+                	URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			responseCode = con.getResponseCode();
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                String url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&appid="+key; 
-                URL obj = new URL(url);
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+					}
 
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-                responseCode = con.getResponseCode();
-                BufferedReader in = new BufferedReader(
-                                new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                }
+			in.close();
+			content = response.toString();
+             
+		}
 		
-
-                in.close();
-                content = response.toString();
-                
-
-        } catch (Exception e) {
-                System.out.print("ERROR : "+e);
-		return new Weather("Not Found","Not Found","Not Found","Not Found",0);
-        }
-       		JSONObject root = new JSONObject(content);
-		//coordinates
-		//temperature-humidity-pressure
+		catch (Exception e) {
+			System.out.print("ERROR : "+e);
+			return new Weather("Not Found","Not Found","Not Found","Not Found",0);
+        	}
+       		
+		JSONObject root = new JSONObject(content);
 		JSONObject main = root.getJSONObject("main");
 		//system
                 JSONObject sys = root.getJSONObject("sys");
@@ -112,34 +93,13 @@ public class WeatherController{
                                 root.getString("name"),
 				main.getInt("temp")
                                 );
-                }
+               
+	}
 
-	
-                                
+	 
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-                //FORECAST WEATHER//	
+        //FORECAST WEATHER//	
  
-
-
         @GetMapping("/weather/forecast")
 	@CrossOrigin(origins="http://localhost:3000")
         public Weatherforecast forecast(@RequestParam(value="lat")String lat,
@@ -148,31 +108,32 @@ public class WeatherController{
 
 
                  try {
+			 
+			String inputLine;
+			String url = "http://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,hourly,minutely&appid="+key; 
+			URL obj = new URL(url);
 
-                String url = "http://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=current,hourly,minutely&appid="+key; 
-                URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			
+			java.lang.StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			 
+			in.close();
+			content = response.toString();
+       		 } 
+		catch (Exception e) {
+			System.out.print("ERROR : "+e);
+			return new Weatherforecast("Not Found","Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0);
+                
+      		}
 
-                //int responseCode = con.getResponseCode();
-                BufferedReader in = new BufferedReader(
-                                new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                java.lang.StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                }
-                in.close();
-                content = response.toString();
-
-        } catch (Exception e) {
-                System.out.print("ERROR : "+e);
-                return new Weatherforecast("Not Found","Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0,"Not Found","Not Found",0);
-                //return "Input invalid/incorrect.";
-        }
-
-        JSONObject rootf = new JSONObject(content);
-        JSONArray daily = rootf.getJSONArray("daily");
+       		JSONObject rootf = new JSONObject(content);
+        	JSONArray daily = rootf.getJSONArray("daily");
                 JSONObject content = daily.getJSONObject(0);
                 JSONArray weather = content.getJSONArray("weather");
                 JSONObject weather0 = weather.getJSONObject(0);
@@ -240,125 +201,20 @@ public class WeatherController{
                                 weather06.getString("description"),
                                 temp6.getInt("day")
                                 
-                                );
-        }
-
+                             
+	
+	);
+       
+	}
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-       
-       
-       
-       
-       
-       
-       
-       
-/*
-       
-        //Favourite Location//
-
-
-
-        @Autowired
-        UserRepository userRepository;
-        @PostMapping(path="/add") // Map ONLY POST Requests
-        @CrossOrigin(origins="http://localhost:3000")
-        User user(@RequestBody User user) {
-
-                return userRepository.save(user);
-                
-        }
-
- 
-
-
-        @GetMapping(path="/all")
-        @CrossOrigin(origins="http://localhost:3000")
-        
-        public List<User> getAllUsers() {
-                return userRepository.findAll();
-        }
-
-        
-        //@RequestParam(value="location" )String location
-        //@PathVariable String id
-        @GetMapping(path="/search-id")
-        @CrossOrigin(origins="http://localhost:3000")
-        public User show(@RequestParam(value="id")String id){
-                int userId = Integer.parseInt(id);
-                Optional<User> bookmark = this.userRepository.findById(userId);
-                if (bookmark.isPresent()) {
-                        return bookmark.get();
-                } 
-                else {
-                        return new User( 0,"Not Found","Not Found");
-                }
-        }
-
-        @DeleteMapping("delete/{id}")
-        public @ResponseBody String delete(@PathVariable String id){
-                int delId = Integer.parseInt(id);
-                userRepository.deleteById(delId);
-                return "Deleted" ;
-        }
-
-        @GetMapping(path="/search-name")
-        @CrossOrigin(origins="http://localhost:3000")
-        public User search(@RequestParam(value="name") String name){
-                Optional<User> bookmark = this.userRepository.findByName(name);
-                        if (bookmark.isPresent()) {
-                        return bookmark.get();
-                        } else {
-                                return new User( 0,"Not Found","Not Found");
-                                                }
-        
-                }
-
-        
-        }
-
-*/
-
-
-
-
-
-
-
-
-
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //Error 
-
-        @RestController
-
-        class MyErrorController implements ErrorController  {
-    
+//Error Handling
+@RestController
+class MyErrorController implements ErrorController  {
+  
                 @GetMapping("/error")
                 public String handleError() {
         
@@ -371,5 +227,6 @@ public class WeatherController{
                         return String.format("/error");
     
                 }
-
-        }
+        
+}        
+        
