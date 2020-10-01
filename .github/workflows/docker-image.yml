@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI (build and push to dockerhub)
 
 on:
   push:
@@ -14,5 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}  
+        DOCKER_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ragade/info-weather:$(date +%s)
+    - name: docker push
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/weather-api
